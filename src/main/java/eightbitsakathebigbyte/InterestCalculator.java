@@ -2,12 +2,12 @@ package eightbitsakathebigbyte;
 
 public class InterestCalculator {
 
-    public long caluculateSimpleInterest(Account account,Integer interval){
+    public long caluculateSimpleInterest(Account account,float interval){
 
         return 0;
     }
 
-    public long calculateComplexInterest(Account account, Integer interval,int frequency){
+    public long calculateComplexInterest(Account account, float interval,int frequency){
 
         return 0;
     }
