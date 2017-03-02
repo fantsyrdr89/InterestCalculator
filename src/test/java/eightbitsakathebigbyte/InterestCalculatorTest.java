@@ -1,15 +1,27 @@
-import org.junit.Before;
-import org.junit.Test;
+package eightbitsakathebigbyte;
+import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
 
 public class InterestCalculatorTest {
+
     InterestCalculator interestCalculator;
     Account account;
 
     @Before
     public void setUp(){
         interestCalculator = new InterestCalculator();
+    }
+
+    //P=$100;  r=0.1; n1 = 1 (annual); n2 = 4 (quarterly); t=1 (in yrs == 365 days)
+    //Interval used in SimpleInterest and CompoundInterest will be a float
+    //Equation for interest: i=P(1+(r/n))^(n*t)-P
+    //Results need to be in pennies.
+
+    @Test
+    public void compIntNonZeroNoRmbTest(){
+        long intExpected = 1000L;
+        long intActual;
     }
 
     @Test
@@ -139,4 +151,6 @@ public class InterestCalculatorTest {
         long actual = interestCalculator.calculateSimpleInterest(account, 30);
         assertEquals("Return the amount of interest that is accrued over the passed in time interval",expected,actual);
     }
+
+
 }
