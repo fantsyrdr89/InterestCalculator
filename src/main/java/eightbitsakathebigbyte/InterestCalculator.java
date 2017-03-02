@@ -11,5 +11,4 @@ public class InterestCalculator {
 
         return 0;
     }
-
 }
