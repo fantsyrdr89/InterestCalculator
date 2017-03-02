@@ -18,7 +18,7 @@ public class InterestCalculatorTest {
     @Test
     public void compIntNonZeroNoRmbTest(){
         long intExpected = 1000L;
-        long intActual = interestCalculator
+        long intActual;
     }
 
 
