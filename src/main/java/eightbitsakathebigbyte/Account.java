@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Account {
 
-    String accountType;
-    Long balance;
-    Double interestRate;
-    Long overdraftPenalty;
-    Long requiredMinimumBalance;
-    ArrayList<RecurringTransaction> recurringTransactions;
+    private String accountType;
+    private Long balance;
+    private Double interestRate;
+    private Long overdraftPenalty;
+    private Long requiredMinimumBalance;
+    private ArrayList<RecurringTransaction> recurringTransactions;
 
     public Account(String accountType, Long balance, Double interestRate, Long overdraftPenalty, Long requiredMinimumBalance, ArrayList<RecurringTransaction> recurringTransactions) {
         this.accountType = accountType;

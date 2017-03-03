@@ -1,12 +1,14 @@
 package eightbitsakathebigbyte;
 import org.junit.*;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class ComplexInterestCalculatorTest {
 
+
     InterestCalculator interestCalculator;
-    Account genericAccount;
     Account savingsBelowRmbAccount;
     Account savingsAboveRmbAccount;
     Account savingsNoRmbAccount;
@@ -33,7 +35,6 @@ public class ComplexInterestCalculatorTest {
     @Before
     public void setUp(){
         interestCalculator = new InterestCalculator();
-        genericAccount = new Account(null, 10000L, 0.1, 0L, 0L, null);
         savingsBelowRmbAccount = new Account(null, 5000L, 0.0, 30L, 100L, null);
         savingsAboveRmbAccount = new Account("savings", 20000L, 0.01, 30L, 100L, null);
         savingsNoRmbAccount = new Account("savings", 20000L, .01, 30L, 0L, null);
@@ -55,6 +56,7 @@ public class ComplexInterestCalculatorTest {
         checkingAboveRmbAcountWithdrawal = new Account("checking", 10000L, 0.0, 30L, 0L, null);
         moneyMarketBelowRmbAcountWithdrawal = new Account("moneyMarket", 500000L, 0.0, 30L, 1000000L, null);
         moneyMarketAboveRmbAcountWithdrawal = new Account("moneyMarket", 2000000L, .05, 30L, 1000000L, null);
+
     }
 
 
@@ -227,70 +229,84 @@ public class ComplexInterestCalculatorTest {
 
     @Test   //  i = P(1+(r/n))^(n*t)-P      P = 20000L  r = 0.01   n = 1   t = 1
     public void compIntAutoDeductionLessThanInterestAnnualSavingsAccountTest(){
-        long expected = 200L;
+        long expected = 99L;
+        ArrayList<RecurringTransaction> transactions = new ArrayList<>();
+        RecurringTransaction transaction = new RecurringTransaction(1, -100);
+        transactions.add(0, transaction);
+        savingsAboveRmbAccount.setRecurringTransactions(transactions);
         long actual = interestCalculator.calculateComplexInterest(savingsAboveRmbAccount, 1.0f, 1);
         assertEquals("Expected", expected, actual);
     }
 
     @Test   //  i = P(1+(r/n))^(n*t)-P      P = 20000L  r = 0.01   n = 4   t = 1
     public void compIntAutoDeductionLessThanInterestQuarterlySavingsAccountTest(){
-        long expected = 200L;
+        long expected = -200L;
+        ArrayList<RecurringTransaction> transactions = new ArrayList<>();
+        RecurringTransaction transaction = new RecurringTransaction(1, -100);
+        transactions.add(0, transaction);
+        savingsAboveRmbAccount.setRecurringTransactions(transactions);
         long actual = interestCalculator.calculateComplexInterest(savingsAboveRmbAccount, 1.0f, 4);
         assertEquals("Expected", expected, actual);
     }
 
-    @Test   //  i = P(1+(r/n))^(n*t)-P      P = 20000L  r = 0.01   n = 365   t = 1
-    public void compIntAutoDeductionLessThanInterestDailySavingsAccountTest(){
-        long expected = 201L;
-        long actual = interestCalculator.calculateComplexInterest(savingsAboveRmbAccount, 1.0f, 365);
+    @Test   //  i = P(1+(r/n))^(n*t)-P      P = 20000L  r = 0.01   n = 1   t = 1
+    public void compIntAutoDepositAnnualSavingsAccountTest(){
+        long expected = 300L;
+        ArrayList<RecurringTransaction> transactions = new ArrayList<>();
+        RecurringTransaction transaction = new RecurringTransaction(1, 100);
+        transactions.add(0, transaction);
+        savingsAboveRmbAccount.setRecurringTransactions(transactions);
+        long actual = interestCalculator.calculateComplexInterest(savingsAboveRmbAccount, 1.0f, 1);
         assertEquals("Expected", expected, actual);
     }
 
-    @Test   //  i = P(1+(r/n))^(n*t)-P      P = 500000L  r = 0.05   n = 1   t = 1
-    public void compIntAutoDeductionLessThanInterestAnnualMMAccountTest(){
-        long expected = 2500L;
-        long actual = interestCalculator.calculateComplexInterest(genericAccount, 1.0f, 1);
+    @Test   //  i = P(1+(r/n))^(n*t)-P      P = 20000L  r = 0.01   n = 4   t = 1
+    public void compIntAutoDepositQuarterlySavingsAccountTest(){
+        long expected = 602L;
+        ArrayList<RecurringTransaction> transactions = new ArrayList<>();
+        RecurringTransaction transaction = new RecurringTransaction(1, 100);
+        transactions.add(0, transaction);
+        savingsAboveRmbAccount.setRecurringTransactions(transactions);
+        long actual = interestCalculator.calculateComplexInterest(savingsAboveRmbAccount, 1.0f, 4);
         assertEquals("Expected", expected, actual);
     }
 
-    @Test   //  i = P(1+(r/n))^(n*t)-P      P = 500000L  r = 0.05   n = 4   t = 1
-    public void compIntAutoDeductionLessThanInterestQuarterlyMMAccountTest(){
-        long expected = 2547L;
-        long actual = interestCalculator.calculateComplexInterest(genericAccount, 1.0f, 4);
-        assertEquals("Expected", expected, actual);
-    }
 
-    @Test   //  i = P(1+(r/n))^(n*t)-P      P = 500000L  r = 0.05   n = 365   t = 1
-    public void compIntAutoDeductionLessThanInterestDailyMMAccountTest(){
-        long expected = 2563L;
-        long actual = interestCalculator.calculateComplexInterest(genericAccount, 1.0f, 365);
-        assertEquals("Expected", expected, actual);
-    }
 
-    @Test
-    public void compIntAutoDeductionLessThanInterestQuarterlyTest(){
-        long expected = 5190L;
-        long actual = interestCalculator.calculateComplexInterest(genericAccount, 1.0f, 4);
-        assertEquals("Expected", expected, actual);
-    }
 
-    //recurring deductions going forward is M=$10/month
-    public void compIntAutoDeductionMoreThanInterestBelowRmbAnnualTest(){
-        long expected = -750L;
-        long actual = interestCalculator.calculateComplexInterest(savingsBelowRmbAccount, 1.0f, 1);
-        assertEquals("Expected", expected, actual);
-    }
 
-    public void compIntAutoDeductionMoreThanInterestBelowRmbQuarterlyTest(){
-        long expected = 254L;
-        long actual = interestCalculator.calculateComplexInterest(savingsBelowRmbAccount, 1.0f, 4);
-        assertEquals("Expected", expected, actual);
-    }
+//    @Test   //  i = P(1+(r/n))^(n*t)-P      P = 20000L  r = 0.01   n = 365   t = 1
+//    public void compIntAutoDeductionLessThanInterestDailySavingsAccountTest(){
+//        long expected = 201L;
+//        ArrayList<RecurringTransaction> transactions = new ArrayList<>();
+//        RecurringTransaction transaction = new RecurringTransaction(1, -100);
+//        transactions.add(0, transaction);
+//        savingsAboveRmbAccount.setRecurringTransactions(transactions);
+//        long actual = interestCalculator.calculateComplexInterest(savingsAboveRmbAccount, 1.0f, 365);
+//        assertEquals("Expected", expected, actual);
+//    }
 
-    public void compIntAutoDeductionMoreThanInterestAboveRmbAnnualTest(){
-        long expected = 250L;
-        long actual = interestCalculator.calculateComplexInterest(savingsBelowRmbAccount, 1.0f, 1);
-        assertEquals("Expected", expected, actual);
-    }
+//    @Test   //  i = P(1+(r/n))^(n*t)-P      P = 500000L  r = 0.05   n = 1   t = 1
+//    public void compIntAutoDeductionLessThanInterestAnnualMMAccountTest(){
+//        long expected = 2500L;
+//        long actual = interestCalculator.calculateComplexInterest(genericAccount, 1.0f, 1);
+//        assertEquals("Expected", expected, actual);
+//    }
+//
+//    @Test   //  i = P(1+(r/n))^(n*t)-P      P = 500000L  r = 0.05   n = 4   t = 1
+//    public void compIntAutoDeductionLessThanInterestQuarterlyMMAccountTest(){
+//        long expected = 2547L;
+//        long actual = interestCalculator.calculateComplexInterest(genericAccount, 1.0f, 4);
+//        assertEquals("Expected", expected, actual);
+//    }
+//
+//    @Test   //  i = P(1+(r/n))^(n*t)-P      P = 500000L  r = 0.05   n = 365   t = 1
+//    public void compIntAutoDeductionLessThanInterestDailyMMAccountTest(){
+//        long expected = 2563L;
+//        long actual = interestCalculator.calculateComplexInterest(genericAccount, 1.0f, 365);
+//        assertEquals("Expected", expected, actual);
+//    }
+
+
 
 }
