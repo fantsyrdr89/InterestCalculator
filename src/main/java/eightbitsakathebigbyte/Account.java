@@ -1,16 +1,21 @@
 package eightbitsakathebigbyte;
 
 import java.util.ArrayList;
+import javax.persistence.*;
 
+@Entity
 public class Account {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long accountID;
 
-    String accountType;
-    long balance;
-    double interestRate;
-    static long overdraftPenalty;
-    long requiredMinimumBalance;
-    boolean isMinimumBalanceRequired;
-    ArrayList<RecurringTransaction> recurringTransactions;
+    private String accountType;
+    private Long balance;
+    private Double interestRate;
+    private Long overdraftPenalty;
+    private Long requiredMinimumBalance;
+    private boolean isMinimumBalanceRequired;
+    private ArrayList<RecurringTransaction> recurringTransactions;
 
     public Account(){
 
