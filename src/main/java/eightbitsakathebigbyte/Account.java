@@ -5,12 +5,16 @@ import java.util.ArrayList;
 public class Account {
 
     String accountType;
-    Long balance;
-    Double interestRate;
-    Long overdraftPenalty;
-    Long requiredMinimumBalance;
+    long balance;
+    double interestRate;
+    static long overdraftPenalty;
+    long requiredMinimumBalance;
     boolean isMinimumBalanceRequired;
     ArrayList<RecurringTransaction> recurringTransactions;
+
+    public Account(){
+
+    }
 
     public Account(String accountType, Long balance, Double interestRate, Long overdraftPenalty, Long requiredMinimumBalance, boolean isMinimumBalanceRequired,ArrayList<RecurringTransaction> recurringTransactions) {
         this.accountType = accountType;
@@ -27,7 +31,8 @@ public class Account {
     }
 
     public void setAccountType(String accountType) {
-        this.accountType = accountType;
+
+        this.accountType=accountType;
     }
 
     public Long getBalance() {
@@ -43,6 +48,7 @@ public class Account {
     }
 
     public void setInterestRate(Double interestRate) {
+
         this.interestRate = interestRate;
     }
 
@@ -50,9 +56,6 @@ public class Account {
         return overdraftPenalty;
     }
 
-    public void setOverdraftPenalty(Long overdraftPenalty) {
-        this.overdraftPenalty = overdraftPenalty;
-    }
 
     public Long getRequiredMinimumBalance() {
         return requiredMinimumBalance;
