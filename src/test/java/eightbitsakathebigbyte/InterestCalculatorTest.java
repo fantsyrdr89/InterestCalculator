@@ -17,7 +17,7 @@ public class InterestCalculatorTest {
     //Interval used in SimpleInterest and CompoundInterest will be a float
     //Equation for interest: i=P(1+(r/n))^(n*t)-P
     //Results need to be in pennies.
-
+/*
     @Test
     public void compIntNonZeroNoRmbTest(){
         long intExpected = 1000L;
@@ -151,6 +151,6 @@ public class InterestCalculatorTest {
         long actual = interestCalculator.calculateSimpleInterest(account, 30);
         assertEquals("Return the amount of interest that is accrued over the passed in time interval",expected,actual);
     }
-
+*/
 
 }

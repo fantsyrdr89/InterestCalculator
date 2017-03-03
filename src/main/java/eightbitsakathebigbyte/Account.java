@@ -17,6 +17,10 @@ public class Account {
     private boolean isMinimumBalanceRequired;
     private ArrayList<RecurringTransaction> recurringTransactions;
 
+    public Account(){
+
+    }
+
     public Account(String accountType, Long balance, Double interestRate, Long overdraftPenalty, Long requiredMinimumBalance, boolean isMinimumBalanceRequired,ArrayList<RecurringTransaction> recurringTransactions) {
         this.accountType = accountType;
         this.balance = balance;
@@ -32,7 +36,8 @@ public class Account {
     }
 
     public void setAccountType(String accountType) {
-        this.accountType = accountType;
+
+        this.accountType=accountType;
     }
 
     public Long getBalance() {
@@ -48,6 +53,7 @@ public class Account {
     }
 
     public void setInterestRate(Double interestRate) {
+
         this.interestRate = interestRate;
     }
 
@@ -55,9 +61,6 @@ public class Account {
         return overdraftPenalty;
     }
 
-    public void setOverdraftPenalty(Long overdraftPenalty) {
-        this.overdraftPenalty = overdraftPenalty;
-    }
 
     public Long getRequiredMinimumBalance() {
         return requiredMinimumBalance;
