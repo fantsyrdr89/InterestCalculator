@@ -5,11 +5,13 @@ package eightbitsakathebigbyte;
  */
 public class CheckedAccount {
     Account newAccount;
+    double storedInterestRate;
 
     public CheckedAccount(Account account){
         newAccount=account;
         checkInterestRate();
         checkBalance();
+        storedInterestRate = account.getInterestRate();
     }
 
 
@@ -47,6 +49,10 @@ public class CheckedAccount {
         if(isRMB()){
             newAccount.setInterestRate(0.0);
         }
+        else{
+            newAccount.setInterestRate(storedInterestRate);
+        }
+
     }
 
     public double checkInterestRate(){
