@@ -22,7 +22,7 @@ public class Account {
 
    public Account(){}
 
-    public Account(String accountType, String firstName, String lastName, Long balance, Double interestRate, Long overdraftPenalty, Long requiredMinimumBalance, ArrayList<RecurringTransaction> transactions) {
+    public Account(String accountType, String firstName, String lastName, Long balance, Double interestRate, Long overdraftPenalty, Long requiredMinimumBalance, ArrayList<RecurringTransaction> recurringTransactions) {
         this.accountType = accountType;
         this.firstName = firstName;
         this.lastName = lastName;

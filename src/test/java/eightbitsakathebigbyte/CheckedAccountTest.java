@@ -12,9 +12,9 @@ public class CheckedAccountTest {
     CheckedAccount checked1;
     CheckedAccount checked2;
     CheckedAccount checked3;
-    Account account1 = new Account("checking", 30000l, 0.0,3000l,0l,true, null );
-    Account account2 = new Account("savings", 15000l, 0.01,3000l,10000l,true, null);
-    Account account3 = new Account("money market", 2000000l, 0.05,3000l, 1000000l,true, null);
+    Account account1 = new Account("checking", null, null, 30000l, 0.0,3000l,0l,null );
+    Account account2 = new Account("savings", null, null, 15000l, 0.01,3000l,10000l,null);
+    Account account3 = new Account("money market", null, null, 2000000l, 0.05,3000l, 1000000l,null);
 
     @Before
     public void setUp(){
@@ -65,11 +65,6 @@ public class CheckedAccountTest {
     }
 
 
-
-    @Test
-    public void checkMinimumBalanceRequirementTest(){
-        assertTrue(checked2.checkMinimumBalanceRequirement());
-    }
 
     @Test
     public void isRMBTest()  {

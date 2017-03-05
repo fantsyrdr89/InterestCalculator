@@ -43,7 +43,7 @@ public class CheckedAccount {
     }
 
     private void checkRMBInterestRate(){
-        if(isRMB()){
+        if(newAccount.getBalance()<newAccount.getRequiredMinimumBalance()){
             newAccount.setInterestRate(0.0);
         }
         else{
@@ -71,15 +71,14 @@ public class CheckedAccount {
         return newAccount.getRequiredMinimumBalance();
     }
 
-
-    public boolean isRMB(){
-        if(checkMinimumBalanceRequirement()) {
-            if (newAccount.getBalance() < newAccount.getRequiredMinimumBalance()) {
-                return true;
-            }
+    public void resetInterestRate(){
+        if(newAccount.getBalance() < newAccount.getRequiredMinimumBalance() && newAccount.getAccountType().equals("savings")){
+            newAccount.setInterestRate(0.0);
+        } else if(newAccount.getBalance() < newAccount.getRequiredMinimumBalance() && newAccount.getAccountType().equals("money market")){
+            newAccount.setInterestRate(0.0);
         }
-        return false;
     }
+
 
     public void setCheckedBalance() {
         if (isOverdraft()) {
