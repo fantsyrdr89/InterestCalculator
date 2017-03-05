@@ -20,7 +20,8 @@ public class Account {
     private Long requiredMinimumBalance;
     private ArrayList<RecurringTransaction> recurringTransactions;
 
-    public Account(){
+   public Account(){
+    }
 
     public Account(String accountType, String firstName, String lastName, Long balance, Double interestRate, Long overdraftPenalty, Long requiredMinimumBalance) {
         this.accountType = accountType;
@@ -43,11 +44,13 @@ public class Account {
     }
 
     public Long getBalance() {
-        return balance;
+
+       return balance;
     }
 
     public void setBalance(Long balance) {
-        this.balance = balance;
+
+       this.balance = balance;
     }
 
     public Double getInterestRate() {

@@ -35,27 +35,27 @@ public class ComplexInterestCalculatorTest {
     @Before
     public void setUp(){
         interestCalculator = new InterestCalculator();
-        savingsBelowRmbAccount = new Account(null, 5000L, 0.0, 30L, 100L, null);
-        savingsAboveRmbAccount = new Account("savings", 20000L, 0.01, 30L, 100L, null);
-        savingsNoRmbAccount = new Account("savings", 20000L, .01, 30L, 0L, null);
-        savingsNoRmbOverdrawnAccount = new Account("savings", -20000L, 0.0, 30L, 0L, null);
-        savingsBelowRmbOverdrawnAccount = new Account("savings", -20000L, 0.0, 30L, 100L, null);
-        checkingBelowRmbAcount = new Account("checking", 10000L, 0.0, 30L, 0L, null);
-        checkingAboveRmbAcount = new Account("checking", 10000L, 0.0, 30L, 0L, null);
-        moneyMarketBelowRmbAcount = new Account("moneyMarket", 500000L, 0.0, 30L, 1000000L, null);
-        moneyMarketAboveRmbAcount = new Account("moneyMarket", 2000000L, .05, 30L, 1000000L, null);
-        savingsBelowRmbAccountDeposit = new Account("savings", 5000L, 0.0, 30L, 100L, null);
-        savingsAboveRmbAccountDeposit = new Account("savings", 20000L, 0.01, 30L, 100L, null);
-        checkingBelowRmbAcountDeposit = new Account("checking", 10000L, 0.0, 30L, 0L, null);
-        checkingAboveRmbAcountDeposit = new Account("checking", 10000L, 0.0, 30L, 0L, null);
-        moneyMarketBelowRmbAcountDeposit = new Account("moneyMarket", 500000L, 0.0, 30L, 1000000L, null);
-        moneyMarketAboveRmbAcountDeposit = new Account("moneyMarket", 2000000L, .05, 30L, 1000000L, null);
-        savingsBelowRmbAccountWithdrawal = new Account("savings", 5000L, 0.0, 30L, 100L, null);
-        savingsAboveRmbAccountWithdrawal = new Account("savings", 20000L, 0.01, 30L, 100L, null);
-        checkingBelowRmbAcountWithdrawal = new Account("checking", 10000L, 0.0, 30L, 0L, null);
-        checkingAboveRmbAcountWithdrawal = new Account("checking", 10000L, 0.0, 30L, 0L, null);
-        moneyMarketBelowRmbAcountWithdrawal = new Account("moneyMarket", 500000L, 0.0, 30L, 1000000L, null);
-        moneyMarketAboveRmbAcountWithdrawal = new Account("moneyMarket", 2000000L, .05, 30L, 1000000L, null);
+        savingsBelowRmbAccount = new Account("savings", null, null, 5000L, 0.0, 30L, 100L, null);
+        savingsAboveRmbAccount = new Account("savings", null, null, 20000L, 0.01, 30L, 100L, null;
+        savingsNoRmbAccount = new Account("savings", null, null, 20000L, .01, 30L, 0L, null);
+        savingsNoRmbOverdrawnAccount = new Account("savings", null, null, -20000L, 0.0, 30L, 0L, null);
+        savingsBelowRmbOverdrawnAccount = new Account("savings", null, null, -20000L, 0.0, 30L, 100L, null);
+        checkingBelowRmbAcount = new Account("checking", null, null, 10000L, 0.0, 30L, 0L, null);
+        checkingAboveRmbAcount = new Account("checking", null, null, 10000L, 0.0, 30L, 0L, null);
+        moneyMarketBelowRmbAcount = new Account("moneyMarket",null, null, 500000L, 0.0, 30L, 1000000L, null);
+        moneyMarketAboveRmbAcount = new Account("moneyMarket", null, null, 2000000L, .05, 30L, 1000000L, null);
+        savingsBelowRmbAccountDeposit = new Account("savings", null, null, 5000L, 0.0, 30L, 100L, null);
+        savingsAboveRmbAccountDeposit = new Account("savings", null, null, 20000L, 0.01, 30L, 100L, null);
+        checkingBelowRmbAcountDeposit = new Account("checking", null, null, 10000L, 0.0, 30L, 0L, null);
+        checkingAboveRmbAcountDeposit = new Account("checking", null, null, 10000L, 0.0, 30L, 0L, null);
+        moneyMarketBelowRmbAcountDeposit = new Account("moneyMarket", null, null, 500000L, 0.0, 30L, 1000000L, null);
+        moneyMarketAboveRmbAcountDeposit = new Account("moneyMarket", null, null, 2000000L, .05, 30L, 1000000L, null);
+        savingsBelowRmbAccountWithdrawal = new Account("savings", null, null, 5000L, 0.0, 30L, 100L, null);
+        savingsAboveRmbAccountWithdrawal = new Account("savings", null, null, 20000L, 0.01, 30L, 100L, null);
+        checkingBelowRmbAcountWithdrawal = new Account("checking", null, null, 10000L, 0.0, 30L, 0L, null);
+        checkingAboveRmbAcountWithdrawal = new Account("checking", null, null, 10000L, 0.0, 30L, 0L, null);
+        moneyMarketBelowRmbAcountWithdrawal = new Account("moneyMarket", null, null, 500000L, 0.0, 30L, 1000000L, null);
+        moneyMarketAboveRmbAcountWithdrawal = new Account("moneyMarket", null, null, 2000000L, .05, 30L, 1000000L, null);
 
     }
 
