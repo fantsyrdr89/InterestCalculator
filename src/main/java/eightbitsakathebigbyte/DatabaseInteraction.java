@@ -11,8 +11,8 @@ public class DatabaseInteraction {
     TransactionsRepository transrepo;
 
     @Bean
-    public Account addAccount(String accountType, String firstName, String lastName, Long balance, Double interestRate, Long overDraftPenalty, Long requiredMinimumBalance, ArrayList<Object> transactions){
-        repository.save(new Account(accountType, firstName, lastName, balance, interestRate, overDraftPenalty, requiredMinimumBalance));
+    public Account addAccount(String accountType, String firstName, String lastName, Long balance, Double interestRate, Long overDraftPenalty, Long requiredMinimumBalance, ArrayList<RecurringTransaction> transactions){
+        repository.save(new Account(accountType, firstName, lastName, balance, interestRate, overDraftPenalty, requiredMinimumBalance, transactions));
         transrepo.save(new ArrayList<Object>(transactions));
         return findAccountByName(lastName, firstName);
     }
