@@ -36,7 +36,7 @@ public class ComplexInterestCalculatorTest {
     public void setUp(){
         interestCalculator = new InterestCalculator();
         savingsBelowRmbAccount = new Account("savings", null, null, 5000L, 0.0, 30L, 100L, null);
-        savingsAboveRmbAccount = new Account("savings", null, null, 20000L, 0.01, 30L, 100L, null;
+        savingsAboveRmbAccount = new Account("savings", null, null, 20000L, 0.01, 30L, 100L, null);
         savingsNoRmbAccount = new Account("savings", null, null, 20000L, .01, 30L, 0L, null);
         savingsNoRmbOverdrawnAccount = new Account("savings", null, null, -20000L, 0.0, 30L, 0L, null);
         savingsBelowRmbOverdrawnAccount = new Account("savings", null, null, -20000L, 0.0, 30L, 100L, null);

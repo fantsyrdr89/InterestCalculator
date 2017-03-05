@@ -14,8 +14,6 @@ public class CheckedAccount {
         storedInterestRate = account.getInterestRate();
     }
 
-
-
     private boolean isChecking(){
         if (newAccount.getAccountType().toLowerCase().equals("checking")){
             return true;
@@ -44,7 +42,6 @@ public class CheckedAccount {
         return false;
     }
 
-
     private void checkRMBInterestRate(){
         if(isRMB()){
             newAccount.setInterestRate(0.0);
@@ -61,17 +58,17 @@ public class CheckedAccount {
     }
 
 
-    public boolean checkMinimumBalanceRequirement(){
+    public long checkMinimumBalanceRequirement(){
         if(isChecking()){
-            newAccount.setMinimumBalanceRequired(false);
+            newAccount.setRequiredMinimumBalance(0L);
         }
         if(isSavings()){
-            newAccount.setMinimumBalanceRequired(true);
+            newAccount.setRequiredMinimumBalance(10000L);
         }
         if(isMoneyMarket()){
-            newAccount.setMinimumBalanceRequired(true);
+            newAccount.setRequiredMinimumBalance(1000000L);
         }
-        return newAccount.isMinimumBalanceRequired;
+        return newAccount.getRequiredMinimumBalance();
     }
 
 

@@ -20,10 +20,9 @@ public class Account {
     private Long requiredMinimumBalance;
     private ArrayList<RecurringTransaction> recurringTransactions;
 
-   public Account(){
-    }
+   public Account(){}
 
-    public Account(String accountType, String firstName, String lastName, Long balance, Double interestRate, Long overdraftPenalty, Long requiredMinimumBalance) {
+    public Account(String accountType, String firstName, String lastName, Long balance, Double interestRate, Long overdraftPenalty, Long requiredMinimumBalance, ArrayList<RecurringTransaction> transactions) {
         this.accountType = accountType;
         this.firstName = firstName;
         this.lastName = lastName;

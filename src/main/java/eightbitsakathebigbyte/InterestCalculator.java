@@ -3,12 +3,15 @@ package eightbitsakathebigbyte;
 
 public class InterestCalculator {
 
+    CheckedAccount checkedAccount;
+
     public long calculateSimpleInterest(Account account, float interval) {
 
         return -1L;
     }
 
     public long calculateComplexInterest(Account account, float interval, int frequency) {
+        checkedAccount = new CheckedAccount(account);
         long interestAccrued;
         long principal = account.getBalance();
         double interestRate = account.getInterestRate();
