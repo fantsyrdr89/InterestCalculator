@@ -12,20 +12,24 @@ public class InterestCalculator {
     private float day = 0.002739726f;
 
     public long calculateSimpleInterest(Account account,float interval){
-        if(hasDeduction(account) && consistentRecurringTransactions(account))
-            account.setBalance(Long.valueOf(account.getBalance() + (account.getRecurringTransactions().get(0).getAmount()*12)));    // Assuming MONTHLY deductions.
+        if(hasDeduction(account) & consistentRecurringTransactions(account))
+            account.setBalance(Long.valueOf(account.getBalance() + (account.getRecurringTransactions().get(0).getAmount()*12) * (long)interval));   // Assuming MONTHLY deductions.
         long interestOnPrincipal = simpleInterestEquation(account, interval);
         long interestOnRecurring = simpleRecurringEquation(account, filterRecurringTransactions(account), interval);
         return interestOnPrincipal + interestOnRecurring;
     }
 
     public long calculateComplexInterest(Account account, float interval,int frequency){
-
         return 0;
     }
 
     // SIMPLE INTEREST HELPER METHODS
     private long simpleInterestEquation(Account account, float interval) {
+        if(crossesRMB(account, interval)) {
+            long intOnInitialRate = (long)(account.getBalance()*account.getInterestRate()*(increasePastRMB(account,interval)*month));
+            long intOnChangedRate = (long)(account.getBalance()*account.getInterestRate()*(interval/month - increasePastRMB(account,interval)*month));
+            return intOnInitialRate + intOnChangedRate;
+        }
         return (long)(account.getBalance()*account.getInterestRate()*interval);
     }
 
@@ -57,7 +61,8 @@ public class InterestCalculator {
     }
 
     private boolean crossesRMB(Account account, float interval) {
-        return belowRMB(account) && filterRecurringTransactions(account)*interval/month + account.getBalance() >= account.getRequiredMinimumBalance();
+        return belowRMB(account) && filterRecurringTransactions(account)*interval/month + account.getBalance() >= account.getRequiredMinimumBalance() |
+                account.getBalance()>=account.getRequiredMinimumBalance() && filterRecurringTransactions(account)*interval/month + account.getBalance() >= account.getRequiredMinimumBalance();
     }
 
     private float increasePastRMB(Account account, float interval) {
@@ -82,7 +87,6 @@ public class InterestCalculator {
 
     // OTHER HELPER METHODS
     private boolean isOverdraft(Account account){
-        if(account.getBalance()<0) return true;
-        return false;
+        return account.getBalance()<0;
     }
 }
