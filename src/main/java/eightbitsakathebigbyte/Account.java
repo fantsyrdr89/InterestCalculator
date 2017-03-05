@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Account {
 
     String accountType;
-    long balance;
-    double interestRate;
-    long overdraftPenalty;
-    long requiredMinimumBalance;
+    Long balance;
+    Double interestRate;
+    Long overdraftPenalty;
+    Long requiredMinimumBalance;
     ArrayList<RecurringTransaction> recurringTransactions;
 
     public Account(String accountType, Long balance, Double interestRate, Long overdraftPenalty, Long requiredMinimumBalance, ArrayList<RecurringTransaction> recurringTransactions) {

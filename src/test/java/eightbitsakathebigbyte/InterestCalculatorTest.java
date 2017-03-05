@@ -6,13 +6,24 @@ import static org.junit.Assert.assertEquals;
 public class InterestCalculatorTest {
 
     InterestCalculator interestCalculator;
-    Account simpleAccount;
+    Account savingsAccount;
+    Account moneyMarketAccount;
 
     @Before
     public void setUp(){
         interestCalculator = new InterestCalculator();
-        simpleAccount = new Account("Savings", Long.valueOf(40000), Double.valueOf(0.1),Long.valueOf(3500)
-        , Long.valueOf(0), null);
+        savingsAccount = new Account("Savings",Long.valueOf(40000),Double.valueOf(0.1),Long.valueOf(3500),Long.valueOf(10000),null);
+        moneyMarketAccount = new Account("Savings",Long.valueOf(1000000),Double.valueOf(0.1),Long.valueOf(7500),Long.valueOf(500000),null);
+    //String accountType, Long balance, Double interestRate, Long overdraftPenalty, Long requiredMinimumBalance, ArrayList<RecurringTransaction> recurringTransactions
+    }
+
+    @After
+    public void tearDown() {
+        savingsAccount.setBalance(Long.valueOf(40000));
+        savingsAccount.setInterestRate(Double.valueOf(0.1));
+        savingsAccount.setRequiredMinimumBalance(Long.valueOf(10000));
+        moneyMarketAccount.setBalance(Long.valueOf(1000000));
+        moneyMarketAccount.setInterestRate(Double.valueOf(0.1));
     }
 
     //P=$100;  r=0.1; n1 = 1 (annual); n2 = 4 (quarterly); t=1 (in yrs == 365 days)
@@ -28,69 +39,75 @@ public class InterestCalculatorTest {
 
     @Test
     public void simpleInterestNormalBalanceNoRMBTest() {
-
-        long expected=333;
-        long actual = interestCalculator.calculateSimpleInterest(simpleAccount, 0.08333333333f);
+        savingsAccount.setRequiredMinimumBalance(Long.valueOf(0));
+        long expected = 333;
+        long actual = interestCalculator.calculateSimpleInterest(savingsAccount,0.08333333333f);
         assertEquals("Return the amount of interest that is accrued over the passed in time interval",expected,actual);
     }
 
     @Test
     public void simpleInterestNormalBalanceAboveRMBTest() {
-        simpleAccount.setRequiredMinimumBalance(Long.valueOf(10000));
-        long expected=333;
-        long actual = interestCalculator.calculateSimpleInterest(simpleAccount, 0.08333333333f);
+        savingsAccount.setRequiredMinimumBalance(Long.valueOf(10000));
+        long expected = 333;
+        long actual = interestCalculator.calculateSimpleInterest(savingsAccount, 0.08333333333f);
         assertEquals("Return the amount of interest that is accrued over the passed in time interval",expected,actual);
     }
 
-    /*
     @Test
     public void simpleInterestNormalBelowMinBalanceNonzeroTest() {
-
-        long expected;
-        long actual = interestCalculator.calculateSimpleInterest(account, 30);
+        savingsAccount.setBalance(Long.valueOf(5000));
+        savingsAccount.setInterestRate(Double.valueOf(0.5));
+        long expected = 208;
+        long actual = interestCalculator.calculateSimpleInterest(savingsAccount, 0.08333333333f);
         assertEquals("Return the amount of interest that is accrued over the passed in time interval",expected,actual);
     }
 
     @Test
     public void simpleInterestZeroBalanceTest() {
-
-        long expected;
-        long actual = interestCalculator.calculateSimpleInterest(account, 30);
+        savingsAccount.setBalance(Long.valueOf(0));
+        savingsAccount.setInterestRate(Double.valueOf(0.5));
+        savingsAccount.setRequiredMinimumBalance(Long.valueOf(0));
+        long expected = 0;
+        long actual = interestCalculator.calculateSimpleInterest(savingsAccount, 0.08333333333f);
         assertEquals("Return the amount of interest that is accrued over the passed in time interval",expected,actual);
     }
 
     @Test
     public void simpleInterestZeroBalanceBelowRMBTest() {
-
-        long expected;
-        long actual = interestCalculator.calculateSimpleInterest(account, 30);
+        savingsAccount.setBalance(Long.valueOf(0));
+        savingsAccount.setInterestRate(Double.valueOf(0.5));
+        long expected = 0;
+        long actual = interestCalculator.calculateSimpleInterest(savingsAccount, 0.08333333333f);
         assertEquals("Return the amount of interest that is accrued over the passed in time interval",expected,actual);
     }
 
     @Test
     public void simpleInterestNegBalanceNoRMBTest() {
-
-        long expected;
-        long actual = interestCalculator.calculateSimpleInterest(account, 30);
+        savingsAccount.setBalance(Long.valueOf(-10000));
+        savingsAccount.setInterestRate(Double.valueOf(0));
+        savingsAccount.setRequiredMinimumBalance(Long.valueOf(0));
+        long expected = 0;
+        long actual = interestCalculator.calculateSimpleInterest(savingsAccount, 0.08333333333f);
         assertEquals("Return the amount of interest that is accrued over the passed in time interval",expected,actual);
     }
 
     @Test
     public void simpleInterestNegBalanceBelowRMBTest() {
-
-        long expected;
-        long actual = interestCalculator.calculateSimpleInterest(account, 30);
+        savingsAccount.setBalance(Long.valueOf(-10000));
+        savingsAccount.setInterestRate(Double.valueOf(0));
+        long expected = 0;
+        long actual = interestCalculator.calculateSimpleInterest(savingsAccount, 0.08333333333f);
         assertEquals("Return the amount of interest that is accrued over the passed in time interval",expected,actual);
     }
 
     @Test
-    public void simpleInterestNegBalanceBelowRMBTest() {
-
+    public void simpleInterestRecurringDeductionsNotExceed() {
+        savingsAccount.
         long expected;
-        long actual = interestCalculator.calculateSimpleInterest(account, 30);
+        long actual = interestCalculator.calculateSimpleInterest(savingsAccount, 30);
         assertEquals("Return the amount of interest that is accrued over the passed in time interval",expected,actual);
     }
-
+/*
     @Test
     public void simpleInterestNormalBalanceRecurringDeductionsNotExceedingIntEarnedTest() {
 
