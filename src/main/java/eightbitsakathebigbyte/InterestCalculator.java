@@ -2,12 +2,20 @@ package eightbitsakathebigbyte;
 
 public class InterestCalculator {
 
-    Account account;
+    private Account account;
+    //private long balance = account.getBalance();
+    //private double rate = account.getInterestRate();
+    //private long penalty = account.getOverdraftPenalty();
+    //private long RMB = account.getRequiredMinimumBalance();
+    //private long recurringTransaction = account.getRecurringTransactions().get(0).getAmount();
+    private float month = 0.08333333333f;
+    private float day = 0.002739726f;
 
     public long calculateSimpleInterest(Account account,float interval){
-        long recurringTransaction = consistentRecurringTransactions(account);
+        if(hasDeduction(account) && consistentRecurringTransactions(account))
+            account.setBalance(Long.valueOf(account.getBalance() + (account.getRecurringTransactions().get(0).getAmount()*12)));    // Assuming MONTHLY deductions.
         long interestOnPrincipal = simpleInterestEquation(account, interval);
-        long interestOnRecurring = simpleRecurringEquation(account, recurringTransaction, interval);
+        long interestOnRecurring = simpleRecurringEquation(account, filterRecurringTransactions(account), interval);
         return interestOnPrincipal + interestOnRecurring;
     }
 
@@ -16,28 +24,65 @@ public class InterestCalculator {
         return 0;
     }
 
-    private boolean isOverdraft(Account account){
-        if(account.getBalance()<0) return true;
-        return false;
-    }
-
-
     // SIMPLE INTEREST HELPER METHODS
-    private long consistentRecurringTransactions(Account account) {
-        if(account.getRecurringTransactions().size()==0) return 0;
-        long totalRecurringTransactions = 0;
-        for(RecurringTransaction entry : account.getRecurringTransactions()) totalRecurringTransactions += entry.getAmount();
-        if(totalRecurringTransactions / account.getRecurringTransactions().size() != account.getRecurringTransactions().get(0).getAmount())     // Fix average number hole
-            return 0;
-        return totalRecurringTransactions;
+    private long simpleInterestEquation(Account account, float interval) {
+        return (long)(account.getBalance()*account.getInterestRate()*interval);
     }
 
     private long simpleRecurringEquation(Account account, long transaction, float interval) {
-        float maturity = interval/0.08333333333f;
+        float maturity = interval/month;
         return (long)(transaction*(maturity*(maturity+1)/(2*12))*account.getInterestRate());
     }
 
-    private long simpleInterestEquation(Account account, float interval) {
-        return (long)(account.getBalance()*account.getInterestRate()*interval);
+    private long filterRecurringTransactions(Account account) {
+        if(account.getRecurringTransactions().size()==0) return 0;
+        if(hasDeduction(account)) return 0;
+        return account.getRecurringTransactions().get(0).getAmount();
+    }
+
+    private boolean hasDeduction(Account account) {
+        for(RecurringTransaction entry : account.getRecurringTransactions()) if(entry.getAmount()<0) return true;
+        return false;
+    }
+
+    private boolean consistentRecurringTransactions(Account account) {
+        for(int i=0;i<account.getRecurringTransactions().size()-1;i++)
+            if(i<account.getRecurringTransactions().size()-1 && account.getRecurringTransactions().get(i).getAmount()!=account.getRecurringTransactions().get(i+1).getAmount())
+                return false;
+        return true;
+    }
+
+    private boolean belowRMB(Account account) {
+        return account.getRequiredMinimumBalance()>0 && account.getBalance()<=account.getRequiredMinimumBalance();
+    }
+
+    private boolean crossesRMB(Account account, float interval) {
+        return belowRMB(account) && filterRecurringTransactions(account)*interval/month + account.getBalance() >= account.getRequiredMinimumBalance();
+    }
+
+    private float increasePastRMB(Account account, float interval) {
+        long tempBalance = account.getBalance();
+        int deposits = 0;
+        while(tempBalance<account.getRequiredMinimumBalance()) {
+            tempBalance += filterRecurringTransactions(account);
+            deposits++;
+        }
+        return deposits;
+    }
+
+    private float decreasePastRMB(Account account, float interval) {
+        long tempBalance = account.getBalance();
+        int deductions = 0;
+        while(tempBalance>account.getRequiredMinimumBalance()) {
+            tempBalance -= filterRecurringTransactions(account);
+            deductions++;
+        }
+        return deductions;
+    }
+
+    // OTHER HELPER METHODS
+    private boolean isOverdraft(Account account){
+        if(account.getBalance()<0) return true;
+        return false;
     }
 }
