@@ -1,4 +1,4 @@
-package Repository;
+package eightbitsakathebigbyte;
 
 import eightbitsakathebigbyte.Account;
 import org.springframework.data.repository.CrudRepository;
