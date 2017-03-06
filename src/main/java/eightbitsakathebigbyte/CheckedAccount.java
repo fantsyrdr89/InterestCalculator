@@ -1,14 +1,11 @@
 package eightbitsakathebigbyte;
 
-/**
- * Created by jeriahhumphrey on 3/2/17.
- */
 public class CheckedAccount {
     Account newAccount;
 
     public CheckedAccount(Account account){
         newAccount=account;
-        checkInterestRate();
+        //checkInterestRate();
         checkBalance();
     }
 
@@ -43,7 +40,7 @@ public class CheckedAccount {
     }
 
 
-    private void checkRMBInterestRate(){
+    /*private void checkRMBInterestRate(){
         if(isRMB()){
             newAccount.setInterestRate(0.0);
         }
@@ -52,10 +49,10 @@ public class CheckedAccount {
     public double checkInterestRate(){
         checkRMBInterestRate();
         return newAccount.getInterestRate();
-    }
+    }*/
 
 
-    public boolean checkMinimumBalanceRequirement(){
+    /*public boolean checkMinimumBalanceRequirement(){
         if(isChecking()){
             newAccount.setMinimumBalanceRequired(false);
         }
@@ -76,7 +73,7 @@ public class CheckedAccount {
             }
         }
         return false;
-    }
+    }*/
 
     public void setCheckedBalance() {
         if (isOverdraft()) {
