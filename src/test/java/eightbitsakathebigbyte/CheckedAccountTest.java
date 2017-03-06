@@ -14,7 +14,7 @@ public class CheckedAccountTest {
     CheckedAccount checked3;
     Account account1 = new Account("checking", null, null, 30000l, 0.0,3000l,0l,null );
     Account account2 = new Account("savings", null, null, 15000l, 0.01,3000l,10000l,null);
-    Account account3 = new Account("money market", null, null, 2000000l, 0.05,3000l, 1000000l,null);
+    Account account3 = new Account("money market", null, null, 10000000L, 0.05,3000l, 1000000l,null);
 
     @Before
     public void setUp(){
@@ -64,21 +64,26 @@ public class CheckedAccountTest {
         assertEquals(-0.0, checked3.checkInterestRate(), 0.0);
     }
 
-
-
     @Test
-    public void isRMBTest()  {
-        account2.setBalance(1000l);
-        assertTrue(checked2.isRMB());
-
+    public void checkInterestRateRMBMoneyMarket2Test(){
+        assertEquals(-0.0, checked3.checkInterestRate(), 0.0);
     }
 
-    @Test
-    public void isRMBTest2()  {
-        account3.setBalance(1000l);
-        assertTrue(checked3.isRMB());
 
-    }
+
+//    @Test
+//    public void isRMBTest()  {
+//        account2.setBalance(1000l);
+//        assertTrue(checked2.isRMB());
+//
+//    }
+
+//    @Test
+//    public void isRMBTest2()  {
+//        account3.setBalance(1000l);
+//        assertTrue(checked3.isRMB());
+//
+//    }
 
     @Test
     public void setCheckedBalance() throws Exception {
